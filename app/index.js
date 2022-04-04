@@ -26,13 +26,13 @@ if (cluster.isMaster) {
     });
 
     app.get("/list", (req, res) => {
-        var list = ["explication nodejs", "explication pm2 vs cluster", "init projet"];
+        var list = ["explication nodejs", "explication pm2 vs cluster", "init projet" , "tailwind vs carbon", "chercher une platforme de leak gratuite (ou pas)"];
         res.json(list);
         console.log('Sent list of items');
     });
 
     // randomInt
-    app.get("/api/:n", function (req, res) {
+    app.get("/:n", function (req, res) {
         let n = parseInt(req.params.n);
         let count = 0;
 
