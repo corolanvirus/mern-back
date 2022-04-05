@@ -2,6 +2,9 @@ const express = require("express");
 const port = 1337;
 const cluster = require("cluster");
 const totalCPUs = require("os").cpus().length;
+const { ApolloServer } = require('apollo-server')
+const { typeDefs } = require('./schema')
+const { resolvers } = require('./resolvers')
 
 if (cluster.isMaster) {
     console.log(`Number of CPUs is ${totalCPUs}`);
@@ -18,8 +21,7 @@ if (cluster.isMaster) {
         cluster.fork();
     });
 } else {
-    const app = express();
-    console.log(`Worker ${process.pid} started`);
+ /*    const app = express();
 
     app.get("/", (req, res) => {
         res.send("HomeView");
@@ -43,9 +45,11 @@ if (cluster.isMaster) {
         }
 
         res.json(count);
-    });
+    }); */
 
-    app.listen(port, () => {
+    console.log(`Worker ${process.pid} started`); // multithread
+    const server = new ApolloServer({resolvers, typeDefs});
+    server.listen(port, () => {
         console.log(`App listening on port ${port}`);
     });
 }
