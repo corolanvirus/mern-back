@@ -47,7 +47,7 @@ if (cluster.isMaster) {
         res.json(count);
     }); */
 
-    console.log(`Worker ${process.pid} started`); // multithread
+    console.log(`Worker ${process.pid} `); // multithread
     const server = new ApolloServer({resolvers, typeDefs});
     server.listen(port, () => {
         console.log(`App listening on port ${port}`);
